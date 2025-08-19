@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,8 +10,8 @@
     <body>
         <div id="content">{% block content %} {% endblock %}</div>
         <div id="sidebar">
-            <h2><a href="{% url "blog:post_list" %}">وبلاگ رضا پناهی</a></h2>
-            <p>برنامه نویسی، هوش مصنوعی، شطرنج و کلی چیز دیگه</p>
+            <h2><a href="{% url "blog:post_list" %}">Reza Panahi's blog</a></h2>
+            <p>Programming, AI, Chess and lot more</p>
         </div>
     </body>
 </html>

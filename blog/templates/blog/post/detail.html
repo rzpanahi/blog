@@ -4,11 +4,12 @@
 
 {% block content %}
 
+    <!-- Post details -->
     <h1>
         {{ post.title }}
     </h1>
     <p class="date">
-        منتشر شده در  {{ post.publish }} توسط  {{ post.author }}
+        published {{ post.publish }} by {{ post.author }}
     </p>
     {{ post.body|linebreaks }}
     <p>
@@ -16,12 +17,27 @@
             Share this post
         </a>
     </p>
+    <hr>
+
+    <!-- Similar posts -->
+    <h2>Similar Posts</h2>
+    {% for post in similar_posts %}
+        <p>
+            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+        </p>
+    {% empty %}
+        <p>There are no similar posts yet!</p>
+    {% endfor %}
+    <hr>
+
+    <!-- Comments count -->
     {% with comments.count as total_comments %}
     <h2>
         {{ total_comments }} comment{{ total_comments|pluralize }}
     </h2>
     {% endwith %}
 
+    <!-- Comments -->
     {% for comment in comments %}
         <div class="comment">
             <p class="info">

@@ -1,12 +1,12 @@
 {% extends "blog/base.html" %}
 
-{% block title %}وبلاگ رضا پناهی{% endblock title %}
+{% block title %}Reza Panahi's blog{% endblock title %}
 
 
 {% block content %}
-<h1>وبلاگ رضا پناهی</h1>
+<h1>Reza Panahi's blog</h1>
 {% if tag %}
-    <h2>پست های مربوط به <b>{{ tag.name }}</b></h2>
+    <h2>Post tagged with <b>{{ tag.name }}</b></h2>
 {% endif %}
 {% for post in posts %}
     <h2>
@@ -16,7 +16,9 @@
     </h2>
     <h2>
         <p class="tags">
-            <b>تگ ها </b>
+            {% if post.tags.all %}
+                <b>tags: </b>
+            {% endif %}
             {% for tag in post.tags.all %}
                 <a href="{% url "blog:post_list_by_tag" tag.slug %}">
                     {{ tag.name }}
@@ -25,7 +27,7 @@
             {% endfor %}
         </p>
         <p class="date">
-            منتشر شده در  {{ post.publish }} توسط  {{ post.author }}
+            published {{ post.publish }} by {{ post.author }}
         </p>
     </h2>
     {{ post.body|truncatewords:30|linebreaks }}
