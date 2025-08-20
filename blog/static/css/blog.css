@@ -21,17 +21,30 @@ h2 {
 }
 
 #content { 
-    float:left;
-    width:60%;
+    float:right;
+    width:75%;
     padding:0 0 0 30px; 
 }
 
+#content > div {
+    margin: auto;
+    width: 75%;
+    text-align: left;
+}
+
 #sidebar { 
-    float:right;
-    width:30%;
-    padding:10px;
+    float:left;
+    width:20%;
+    padding:20px;
     background:#efefef; 
     height:100%;
+    text-align: center;
+}
+
+#sidebar > div {
+    margin: auto;
+    width: 80%;
+    text-align: left;
 }
 
 p.date { 
