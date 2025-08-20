@@ -1,4 +1,5 @@
 {% extends "blog/base.html" %}
+{% load blog_tags %}
 
 {% block title %}Reza Panahi's blog{% endblock title %}
 
@@ -30,7 +31,7 @@
             published {{ post.publish }} by {{ post.author }}
         </p>
     </h2>
-    {{ post.body|truncatewords:30|linebreaks }}
+    {{ post.body|truncatechars_html:30|markdown }}
     <hr>
 {% endfor %}
 {% include "pagination.html" with page=posts %}
