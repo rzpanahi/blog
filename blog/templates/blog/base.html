@@ -22,6 +22,11 @@
                     <br><br>
                     I've written <b>{% total_posts %}</b> posts.
                 </p>
+                <p>
+                    <a href="{% url "blog:post_feed" %}">
+                        Subscribe to the RSS feed
+                    </a>
+                </p>
                 <h3>Latest posts</h3>
                 {% latest_posts 4 %}
                 <h3>Most commented</h3>
