@@ -1,0 +1,30 @@
+{% load blog_tags %}
+
+<article class="bg-white rounded-xl shadow p-5 hover:shadow-lg transition">
+    <!-- Post Title -->
+    <a href="{{ post.get_absolute_url }}" class="text-xl font-semibold text-indigo-600 hover:underline">
+        {{ post.title }}
+    </a>
+
+    <!-- Metadata -->
+    <p class="text-sm text-gray-500 mt-1">
+        Published {{ post.publish|date:"d M, Y" }} by {{ post.author }}
+    </p>
+
+    <!-- Excerpt / Body Preview -->
+    <div class="text-gray-700 mt-3 prose prose-indigo max-w-none">
+        {{ post.body|truncatewords:25|markdown }}
+    </div>
+
+    <!-- Tags -->
+    {% if post.tags.all %}
+    <div class="mt-4 flex flex-wrap gap-2">
+        {% for tag in post.tags.all %}
+        <a href="{% url 'blog:post_list_by_tag' tag.slug %}" 
+            class="text-xs bg-indigo-50 text-indigo-600 px-2 py-1 rounded-lg hover:bg-indigo-100">
+            #{{ tag.name }}
+        </a>
+        {% endfor %}
+    </div>
+    {% endif %}
+</article>

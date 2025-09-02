@@ -1,39 +1,38 @@
+
 {% extends "blog/base.html" %}
-{% load blog_tags %}
 
-{% block title %}Reza Panahi's blog{% endblock title %}
-
+{% block title %}Reza Panahi's Blog{% endblock title %}
 
 {% block content %}
-<h1>Reza Panahi's blog</h1>
-{% if tag %}
-    <h2>Post tagged with <b>{{ tag.name }}</b></h2>
-{% endif %}
-{% for post in posts %}
-    <h2>
-        <a href="{{ post.get_absolute_url }}">
-            {{ post.title }}
-        </a>
-    </h2>
-    <h2>
-        <p class="tags">
-            {% if post.tags.all %}
-                <b>tags: </b>
-            {% endif %}
-            {% for tag in post.tags.all %}
-                <a href="{% url "blog:post_list_by_tag" tag.slug %}">
-                    {{ tag.name }}
-                </a>
-                {% if not forloop.last %}, {% endif %}
-            {% endfor %}
-        </p>
-        <p class="date">
-            published {{ post.publish }} by {{ post.author }}
-        </p>
-    </h2>
-    {{ post.body|truncatechars_html:30|markdown }}
-    <hr>
-{% endfor %}
-{% include "pagination.html" with page=posts %}
 
+<!-- Hero / Intro -->
+<div class="mb-10 text-center">
+    <h1 class="text-3xl font-bold text-indigo-600">Software, Programming, Python, Django</h1>
+    <p class="mt-2 text-gray-600">Here is a place for me to share everything I learn about software development, programming and more.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-1 gap-8">
+    <!-- Main content (posts) -->
+    <div class="lg:col-span-3 space-y-6">
+        {% if tag %}
+            <h2 class="text-xl mb-6">
+                Posts tagged with <b class="text-indigo-600">#{{ tag.name }}</b>
+            </h2>
+        {% endif %}
+
+        {% for post in posts %}
+            {% include "blog/post/includes/post_card.html" with post=post %}
+        {% empty %}
+            <p class="text-gray-600">No posts yet.</p>
+        {% endfor %}
+
+        <!-- Pagination -->
+        <div class="mt-8">
+            {% include "pagination.html" with page=posts %}
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="lg:col-span-1 space-y-6">
+    </aside>
+</div>
 {% endblock content %}

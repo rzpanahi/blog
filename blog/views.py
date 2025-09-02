@@ -7,7 +7,7 @@ from django.db.models import Count
 
 from taggit.models import Tag
 
-from .models import Post, Comment
+from .models import Post
 from .forms import EmailPostForm, CommentForm
 
 
@@ -54,9 +54,9 @@ def post_detail(request, year, month, day, post):
 
     post_tag_ids = post.tags.values_list("id", flat=True)
     similar_posts = Post.published.filter(tags__in=post_tag_ids).exclude(id=post.id)
-    similar_posts = similar_posts.annotate(same_tags=Count("tags")).order_by("-same_tags", "-publish")[
-        :4
-    ]
+    similar_posts = similar_posts.annotate(same_tags=Count("tags")).order_by(
+        "-same_tags", "-publish"
+    )[:4]
 
     return render(
         request,
@@ -80,10 +80,10 @@ def post_share(request, post_id):
             cd = form.cleaned_data
 
             post_url = request.build_absolute_uri(post.get_absolute_url())
-            subject = f"{cd['name']} {cd['email']} " f"recommends you read {post.title}"
+            subject = f"{cd['name']} {cd['email']} recommends you read {post.title}"
             message = (
                 f"Read {post.title} at {post_url}\n\n"
-                f"{cd["name"]}'s comments: {cd["comments"]}"
+                f"{cd['name']}'s comments: {cd['comments']}"
             )
 
             send_mail(
@@ -102,6 +102,7 @@ def post_share(request, post_id):
     )
 
 
+@require_POST
 def post_comment(request, post_id):
     post = get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
 
@@ -121,3 +122,7 @@ def post_comment(request, post_id):
             "form": form,
         },
     )
+
+
+def about(request):
+    return render(request, "blog/about.html")

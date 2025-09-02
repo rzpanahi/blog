@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "django.contrib.staticfiles",
     "taggit",
+    "widget_tweaks",
     "blog.apps.BlogConfig",
 ]
 
